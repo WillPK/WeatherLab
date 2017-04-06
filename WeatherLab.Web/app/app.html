@@ -1,0 +1,13 @@
+﻿<div>
+  <label>Please enter a city: </label>
+  <input type="text" name="city" [(ngModel)]="city" />
+  <input type="button" value="Search 5 day forcast" (click)="search()" [disabled]="city == ''" />
+</div>
+
+<div>
+  <p *ngIf="loading">Loading...</p>
+  <div *ngIf="!loading && result != null">
+    <p>Weather summary: {{result.weather[0].main}}</p>
+    <p>Details: {{resultText}}</p>
+  </div>
+</div>
