@@ -14,15 +14,15 @@ namespace WeatherLab.Web.Controllers
     }
 
     [HttpPost]
-    public async Task<IHttpActionResult> Find5DayForcast(string city)
+    public async Task<string> Find5DayForcast(string city)
     {
       try
       {
-          return Json(await _weatherService.Get5DayForcast(city));
+          return await _weatherService.Get5DayForcast(city);
       }
       catch
       {
-        return Json(string.Empty);
+        return string.Empty;
       }
     }
   }

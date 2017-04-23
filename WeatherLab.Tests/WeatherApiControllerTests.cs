@@ -33,7 +33,7 @@ namespace WeatherLab.Tests
         }
 
         [Test]
-        public async Task ShouldReturnNullWhenWeatherServiceThrowsAnException()
+        public async Task ShouldReturnEmptyStringWhenWeatherServiceThrowsException()
         {
             var city = "anything";
 
@@ -41,7 +41,7 @@ namespace WeatherLab.Tests
 
             var result = await _weatherApiController.Find5DayForcast(city);
 
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
         }
     }
 }
