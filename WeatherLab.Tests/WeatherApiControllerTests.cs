@@ -32,12 +32,11 @@ namespace WeatherLab.Tests
             Assert.AreEqual(response, result);
         }
 
-        [TestCase("")]
-        [TestCase(" ")]
-        [TestCase(null)]
-        [TestCase("unavailable")]
-        public async Task ShouldReturnNullWhenWeatherServiceThrowsAnException(string city)
+        [Test]
+        public async Task ShouldReturnNullWhenWeatherServiceThrowsAnException()
         {
+            var city = "anything";
+
             _weatherService.Setup(s => s.Get5DayForcast(city)).Throws<HttpRequestException>();
 
             var result = await _weatherApiController.Find5DayForcast(city);

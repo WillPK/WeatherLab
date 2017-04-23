@@ -12,10 +12,9 @@ import { Observable } from 'rxjs/Observable';
 export class AppComponent {
 
     city: string = 'London';
-    result: any;
-    resultText: any;
+    displayText: string;
     loading: boolean = false;
-
+    parent: AppComponent = this;
     constructor(private http: Http) {
 
     }
@@ -23,11 +22,20 @@ export class AppComponent {
     search() {
         this.loading = true;
         // in a real world app, this is extracted out in a separate injectable service
-        this.post("api/weather?city=" + this.city, {}).subscribe(r => {
-            this.resultText = r;
-            this.result = JSON.parse(r);
-            this.loading = false;
-        });
+        this.post("api/weather?city=" + this.city, {})
+            .subscribe(result => this.processResult(result));
+    }
+
+    processResult(result: string) {
+        this.displayText = this.isEmpty(result)
+            ? 'Unknown city, please try again.'
+            : result;
+
+        this.loading = false;
+    }
+
+    isEmpty(val: string) {
+        return Object.keys(val).length === 0;
     }
 
     private post(url: string, data: any): Observable<any> {
@@ -44,6 +52,7 @@ export class AppComponent {
         if (res.status === 204) {
             return {};
         }
+
         return res.json() || {};
     }
 

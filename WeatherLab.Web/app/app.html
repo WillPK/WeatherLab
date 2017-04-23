@@ -6,8 +6,7 @@
 
 <div>
   <p *ngIf="loading">Loading...</p>
-  <div *ngIf="!loading && result != null">
-    <p>Weather summary: {{result.weather[0].main}}</p>
-    <p>Details: {{resultText}}</p>
-  </div>
+    <div *ngIf="!loading">
+      <p>{{displayText}}</p>
+    </div>
 </div>
