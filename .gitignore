@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/packages
+/.vs
+/WeatherLab.Model/bin/Debug
+/WeatherLab.Model/obj/Debug
+/WeatherLab.Tests/bin/Debug
+/WeatherLab.Tests/obj/Debug
+/WeatherLab.Web/bin
+/WeatherLab.Web/obj/Debug

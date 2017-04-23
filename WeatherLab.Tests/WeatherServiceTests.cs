@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Net.Http;
+using NUnit.Framework;
 using System.Threading.Tasks;
 using WeatherLab.Model;
 
@@ -23,6 +24,16 @@ namespace WeatherLab.Tests
             var result = await _weatherService.Get5DayForcast(city);
 
             Assert.IsTrue(!string.IsNullOrWhiteSpace(result));            
+        }
+
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        [TestCase("unavailable")]
+        public void ShouldThrowExceptionWhenCityNotProvidedOrNotFound(string city)
+        {
+            Assert.That(async () => await _weatherService.Get5DayForcast(city), 
+                Throws.Exception.TypeOf<HttpRequestException>());
         }
     }
 }

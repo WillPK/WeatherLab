@@ -1,8 +1,8 @@
-﻿using Moq;
+﻿using System.Net.Http;
+using Moq;
 using NUnit.Framework;
 using WeatherLab.Model;
 using WeatherLab.Web.Controllers;
-using System.Web.Http;
 using System.Threading.Tasks;
 
 namespace WeatherLab.Tests
@@ -27,9 +27,22 @@ namespace WeatherLab.Tests
 
             _weatherService.Setup(s => s.Get5DayForcast(city)).ReturnsAsync(response);
 
-            var result = await _weatherApiController.Get5DayForcast(city);
+            var result = await _weatherApiController.Find5DayForcast(city);
 
             Assert.AreEqual(response, result);
+        }
+
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        [TestCase("unavailable")]
+        public async Task ShouldReturnNullWhenWeatherServiceThrowsAnException(string city)
+        {
+            _weatherService.Setup(s => s.Get5DayForcast(city)).Throws<HttpRequestException>();
+
+            var result = await _weatherApiController.Find5DayForcast(city);
+
+            Assert.IsNull(result);
         }
     }
 }
